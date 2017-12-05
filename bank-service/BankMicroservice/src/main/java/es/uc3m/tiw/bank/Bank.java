@@ -23,21 +23,23 @@ public class Bank {
 	int httpCode;
 	
 	@RequestMapping(value = "/banking", method = RequestMethod.GET)
-	public @ResponseBody String bankingService(@RequestParam(value = "cardNumber", required = true) int cardNumber, 
+	public @ResponseBody String bankingService(@RequestParam(value = "cardNumber", required = true) String cardNumber, 
 			@RequestParam(value = "cv2Number", required = true) int cv2Number,
 			@RequestParam(value = "expireMonth", required = true) int expireMonth,
 			@RequestParam(value = "expireYear", required = true) int expireYear) {
 		
 		bankReturn = new BankReturn();
+		
+		//Set HTTP return code HTTP 2000 if everything is OK
 		bankReturn.setHttpCode("HTTP 2000");
-		/*
+		
 		//Check if Card Number is length 16
 		if (String.valueOf(cardNumber).length() != 16) {
 			bankReturn.setHttpCode("HTTP 402");
 		}
 		
 		//Check if Card Number is divisible by 4
-		if (cardNumber % 4 != 0) {
+		if (Integer.parseInt(cardNumber.substring(cardNumber.length()-2))%4!=0) {
 			bankReturn.setHttpCode("HTTP 402");
 		}
 		
@@ -45,6 +47,7 @@ public class Bank {
 		if (String.valueOf(cv2Number).length() != 3) {
 			bankReturn.setHttpCode("HTTP 402");
 		}
+		
 		
 		//Check if date is later to the current one
 		DateFormat dateFormat = new SimpleDateFormat("yy/MM");
@@ -58,8 +61,8 @@ public class Bank {
 			bankReturn.setHttpCode("HTTP 402");
 		}
 		
-		*/
 		
-		return "hello";
+		
+		return bankReturn.getHttpCode();
 	}
 }
