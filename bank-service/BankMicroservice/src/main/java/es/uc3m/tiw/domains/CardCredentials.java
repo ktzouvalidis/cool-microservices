@@ -5,16 +5,16 @@ import java.io.Serializable;
 public class CardCredentials implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private int cardNumber;
+	private String cardNumber;
 	private int cv2Number;
 	private int expireMonth;
 	private int expireYear;
 	
 
-	public int getCardNumber() {
+	public String getCardNumber() {
 		return cardNumber;
 	}
-	public void setCardNumber(int cardNumber) {
+	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
 	public int getCv2Number() {
@@ -41,7 +41,7 @@ public class CardCredentials implements Serializable {
 		return "CardCredentials [cardNumber=" + cardNumber + ", cv2Number=" + cv2Number + ", expireMonth=" + expireMonth
 				+ ", expireYear=" + expireYear + "]";
 	}
-	public CardCredentials(int cardNumber, int cv2Number, int expireMonth, int expireYear) {
+	public CardCredentials(String cardNumber, int cv2Number, int expireMonth, int expireYear) {
 		super();
 		this.cardNumber = cardNumber;
 		this.cv2Number = cv2Number;
