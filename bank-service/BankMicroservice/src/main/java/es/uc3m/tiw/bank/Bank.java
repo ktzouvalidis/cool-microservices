@@ -18,17 +18,17 @@ import es.uc3m.tiw.domains.BankReturn;
 @CrossOrigin
 public class Bank {
 	BankReturn bankReturn;
-	Boolean valid;
 	int transactionCode;
 	int httpCode;
 	
 	@RequestMapping(value = "/banking", method = RequestMethod.GET)
-	public @ResponseBody String bankingService(@RequestParam(value = "cardNumber", required = true) String cardNumber, 
+	public @ResponseBody BankReturn bankingService (@RequestParam(value = "cardNumber", required = true) String cardNumber, 
 			@RequestParam(value = "cv2Number", required = true) int cv2Number,
 			@RequestParam(value = "expireMonth", required = true) int expireMonth,
 			@RequestParam(value = "expireYear", required = true) int expireYear) {
 		
 		bankReturn = new BankReturn();
+		
 		
 		//Set HTTP return code HTTP 2000 if everything is OK
 		bankReturn.setHttpCode("HTTP 2000");
@@ -61,8 +61,14 @@ public class Bank {
 			bankReturn.setHttpCode("HTTP 402");
 		}
 		
+		//After deciding where to get the ticket info, create method for validating balance vs price of tickets
+		//if (creditCard.getBalance() < totalPriceOfTickets) then HTTP 402
 		
+		//Create transaction code (I don't know what it is for - maybe we register transactions in database?
+		//Either randomly create, or create transaction entry in a database table and return transaction code
+		bankReturn.setTransactionCode(1234);
 		
-		return bankReturn.getHttpCode();
+		//At the moment only returning Http Code as a string.
+		return bankReturn;
 	}
 }
