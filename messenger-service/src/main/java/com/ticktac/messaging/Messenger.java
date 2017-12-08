@@ -10,7 +10,6 @@ import org.springframework.jms.core.MessagePostProcessor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ticktac.domain.Message;
@@ -53,7 +52,8 @@ public class Messenger {
 	@RequestMapping("/readmessages/{receiver_id}")
 	public List<Message> readMessages(@PathVariable int receiver_id) {
 		//return (List<Message>)jmsTemplate.receiveSelectedAndConvert("ticktacQueue", "receiver_id=" + receiver_id);
-		jmsTemplate.setReceiveTimeout(JmsTemplate.RECEIVE_TIMEOUT_NO_WAIT); // Don't wait for messages and block the application!
-		return (List<Message>)jmsTemplate.receiveAndConvert("ticktacQueue");
+		jmsTemplate.setReceiveTimeout(1); // Don't wait for messages and block the application!
+		List<Message> messages = (List<Message>)jmsTemplate.receiveAndConvert("ticktacQueue");
+		return messages;
 	}
 }
