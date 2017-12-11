@@ -15,7 +15,7 @@ import org.springframework.jms.support.converter.MessageType;
 @SpringBootApplication
 public class MessengerServiceApplication {
 	
-	@Bean
+	/*@Bean
 	public JmsListenerContainerFactory<?> ticktacCF(ConnectionFactory connectionFactory,
 			DefaultJmsListenerContainerFactoryConfigurer configurer) {
 		DefaultJmsListenerContainerFactory cf = new DefaultJmsListenerContainerFactory();
@@ -31,7 +31,7 @@ public class MessengerServiceApplication {
 		converter.setTypeIdPropertyName("_type");
 		
 		return converter;
-	}
+	}*/
 	
 	public static void main(String[] args) {
 		SpringApplication.run(MessengerServiceApplication.class, args);
