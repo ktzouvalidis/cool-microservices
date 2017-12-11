@@ -18,7 +18,19 @@ import com.ticktac.domain.Message;
 @CrossOrigin
 public class Messenger {
 	
-	@Autowired private JmsTemplate jmsTemplate;
+	@Autowired MessageDAO messageDAO;
+	
+	@RequestMapping("sendmessage/{from}")
+	public Message sendMessage(@PathVariable int from) {
+		return messageDAO.save(new Message(from, 1, "heyyy"));
+	}
+	
+	@RequestMapping("shwomessages")
+	public List<Message> showMessages() {
+		return messageDAO.findByTo(1);
+	}
+	
+	/*@Autowired private JmsTemplate jmsTemplate;
 	
 	@RequestMapping("/sendmessage/{sender_id}/{sender_name}")
 	public Message sendMessage(@PathVariable int sender_id, @PathVariable String sender_name) {
@@ -43,11 +55,6 @@ public class Messenger {
 		return message;
 	}
 	
-	@RequestMapping("/test")
-	public Message showMessage() {
-		return new Message(1, 2, "Kostas", "HEYYY");
-	}
-	
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/readmessages/{receiver_id}")
 	public List<Message> readMessages(@PathVariable int receiver_id) {
@@ -55,5 +62,5 @@ public class Messenger {
 		jmsTemplate.setReceiveTimeout(1); // Don't wait for messages and block the application!
 		List<Message> messages = (List<Message>)jmsTemplate.receiveAndConvert("ticktacQueue");
 		return messages;
-	}
+	}*/
 }

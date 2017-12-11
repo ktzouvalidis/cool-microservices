@@ -1,18 +1,24 @@
 package com.ticktac.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Message {
 	
+	@Id
+	@GeneratedValue
+	private Long id;
 	private int from; // ID of the sender
 	private int to; // ID of the receiver
-	private String senderName;
 	private String body; // Content of the message
 	
 	public Message() {}
 	
-	public Message(int from, int to, String senderName, String body) {
+	public Message(int from, int to, String body) {
 		this.from = from;
 		this.to = to;
-		this.senderName = senderName;
 		this.body = body;
 	}
 
@@ -30,14 +36,6 @@ public class Message {
 
 	public void setTo(int to) {
 		this.to = to;
-	}
-
-	public String getSenderName() {
-		return senderName;
-	}
-
-	public void setSenderName(String senderName) {
-		this.senderName = senderName;
 	}
 
 	public String getBody() {
