@@ -3,6 +3,7 @@ package es.uc3m.tiw.bank;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,13 @@ public class Bank {
 		
 		bankReturn = new BankReturn();
 		http = true;
+		
+		//create random transaction code
+		String transactionCode = "";
+		Random rand = new Random();
+		for (int i = 0; i<11; i++) {
+			transactionCode += rand.nextInt(10);
+		}
 		
 		
 		//http = true => everything is OK. http = false => something wrong
@@ -73,7 +81,7 @@ public class Bank {
 		//Either randomly create, or create transaction entry in a database table and return transaction code
 		
 		if (http == true) {
-			bankReturn.setTransactionCode(1234);
+			bankReturn.setTransactionCode(transactionCode);
 			response = new ResponseEntity<>(bankReturn, HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(bankReturn, HttpStatus.PAYMENT_REQUIRED);
