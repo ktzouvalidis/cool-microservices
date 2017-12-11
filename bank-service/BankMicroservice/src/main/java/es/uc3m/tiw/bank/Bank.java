@@ -61,6 +61,10 @@ public class Bank {
 			http = false;
 		}
 		
+		//check is date is a valid date
+		if (expireMonth < 0 || expireMonth > 12 || expireYear < 11 || expireYear > 99) {
+			http = false;
+		}
 		
 		//Check if date is later to the current one
 		DateFormat dateFormat = new SimpleDateFormat("yy/MM");
