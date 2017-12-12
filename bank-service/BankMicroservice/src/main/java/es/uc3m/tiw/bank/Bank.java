@@ -31,20 +31,12 @@ public class Bank {
 			@RequestParam(value = "cardNumber", required = true) String cardNumber,
 			@RequestParam(value = "cv2Number", required = true) int cv2Number,
 			@RequestParam(value = "expireMonth", required = true) int expireMonth,
-			@RequestParam(value = "expireYear", required = true) int expireYear) {
+			@RequestParam(value = "expireYear", required = true) int expireYear,
+			@RequestParam(value = "ticketsBought", required = true) int ticketsBought,
+			@RequestParam(value = "ticketPrice", required = true) int ticketPrice ) {
 		
 		bankReturn = new BankReturn();
 		http = true;
-		
-		//create random transaction code
-		String transactionCode = "";
-		Random rand = new Random();
-		for (int i = 0; i<11; i++) {
-			transactionCode += rand.nextInt(10);
-		}
-		
-		
-		//http = true => everything is OK. http = false => something wrong
 		
 		//Check if Card Number is length 16
 		if (String.valueOf(cardNumber).length() != 16) {
@@ -66,33 +58,13 @@ public class Bank {
 			http = false;
 		}
 		
-		//Check if date is later to the current one
-		DateFormat dateFormat = new SimpleDateFormat("yy/MM");
-		Date date = new Date();
-		String dateString = dateFormat.format(date);
-		String yearString = dateString.substring(0, 2);
-		String monthString = dateString.substring(3,5);
-		int yearInt = Integer.parseInt(yearString);
-		int monthInt = Integer.parseInt(monthString);
-		if (expireYear < yearInt || (expireYear == yearInt && expireMonth <= monthInt)) {
-			http = false;
-		}
-		
-		//After deciding where to get the ticket info, create method for validating balance vs price of tickets
-		//if (creditCard.getBalance() < totalPriceOfTickets) then HTTP 402
-		
-		//Create transaction code (I don't know what it is for - maybe we register transactions in database?
-		//Either randomly create, or create transaction entry in a database table and return transaction code
-		
+		//If everything OK: use method to stuff shit in bank and get transaction code
 		if (http == true) {
-			bankReturn.setTransactionCode(transactionCode);
-			response = new ResponseEntity<>(bankReturn, HttpStatus.OK);
+			//bankReturn.setTransactionCode(insertTransactionToDatabase());
+			bankReturn.setTransactionCode(1);
+			return new ResponseEntity<>(bankReturn, HttpStatus.OK);
 		} else {
-			response = new ResponseEntity<>(bankReturn, HttpStatus.PAYMENT_REQUIRED);
+			return new ResponseEntity<>(bankReturn, HttpStatus.PAYMENT_REQUIRED);
 		}
-		
-		
-		//At the moment only returning Http Code as a string.
-		return response;
 	}
 }

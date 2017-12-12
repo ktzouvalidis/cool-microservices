@@ -1,0 +1,29 @@
+CREATE DATABASE IF NOT EXISTS `tick-tac-bank`;
+
+USE `tick-tac-bank`;
+
+
+
+DROP TABLE IF EXISTS `transaction`;
+
+
+
+CREATE TABLE `transaction` (
+
+`id` int(11) NOT NULL AUTO_INCREMENT,
+
+`card_number` varchar(16) NOT NULL,
+
+`cv2_number` int(3) NOT NULL,
+
+`expire_month` int(2) NOT NULL,
+
+`expire_year` int(2) NOT NULL,
+
+`date` datetime NOT NULL,
+
+`total_amount` float NOT NULL,
+
+PRIMARY KEY (`id`))
+
+ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
