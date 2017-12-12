@@ -1,41 +1,48 @@
 package com.ticktac.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 @Entity
-public class Message {
+@JsonPropertyOrder({"id", "sender", "receiver", "body"})
+public class Message implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue
 	private Long id;
-	private int from; // ID of the sender
-	private int to; // ID of the receiver
+	private int sender; // ID of the sender
+	private int receiver; // ID of the receiver
 	private String body; // Content of the message
 	
 	public Message() {}
 	
 	public Message(int from, int to, String body) {
-		this.from = from;
-		this.to = to;
+		this.sender = from;
+		this.receiver = to;
 		this.body = body;
 	}
 
-	public int getFrom() {
-		return from;
+	public int getSender() {
+		return sender;
 	}
 
-	public void setFrom(int from) {
-		this.from = from;
+	public void setSender(int from) {
+		this.sender = from;
 	}
 
-	public int getTo() {
-		return to;
+	public int getReceiver() {
+		return receiver;
 	}
 
-	public void setTo(int to) {
-		this.to = to;
+	public void setReceiver(int to) {
+		this.receiver = to;
 	}
 
 	public String getBody() {
