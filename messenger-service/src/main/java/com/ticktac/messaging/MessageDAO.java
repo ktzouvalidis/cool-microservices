@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 import com.ticktac.domain.Message;
 
 public interface MessageDAO extends JpaRepository<Message, Long> {
-	public List<Message> findByTo(int to);
+	public List<Message> findByReceiver(int receiver);
 }

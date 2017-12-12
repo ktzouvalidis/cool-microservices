@@ -2,14 +2,15 @@ package com.ticktac.messaging;
 
 import java.util.List;
 
-import javax.jms.JMSException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessagePostProcessor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ticktac.domain.Message;
@@ -20,14 +21,20 @@ public class Messenger {
 	
 	@Autowired MessageDAO messageDAO;
 	
-	@RequestMapping("sendmessage/{from}")
-	public Message sendMessage(@PathVariable int from) {
-		return messageDAO.save(new Message(from, 1, "heyyy"));
+	@RequestMapping(value="/sendmessage", method=RequestMethod.POST)
+	public ResponseEntity<Message> sendMessage(@Validated @RequestBody Message message) {
+		try {
+			System.out.println(message.getSender() + " " + message.getReceiver() + " " + message.getBody());
+			return new ResponseEntity<>(messageDAO.save(message), HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 	
-	@RequestMapping("shwomessages")
-	public List<Message> showMessages() {
-		return messageDAO.findByTo(1);
+	@RequestMapping(value="/readmessages/{receiver}", method=RequestMethod.GET)
+	public List<Message> showMessages(@PathVariable int receiver) {
+		return messageDAO.findByReceiver(receiver);
 	}
 	
 	/*@Autowired private JmsTemplate jmsTemplate;
