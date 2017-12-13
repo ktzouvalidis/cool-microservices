@@ -18,23 +18,26 @@ public class Message implements Serializable {
 	@GeneratedValue
 	private Long id;
 	private int sender; // ID of the sender
+	private String sendername; // Sender's name - value of 'Administrator' if the sender is the Administrator
 	private int receiver; // ID of the receiver
 	private String body; // Content of the message
 	
 	public Message() {}
 	
-	public Message(int from, int to, String body) {
-		this.sender = from;
-		this.receiver = to;
-		this.body = body;
-	}
-
 	public int getSender() {
 		return sender;
 	}
 
 	public void setSender(int from) {
 		this.sender = from;
+	}
+	
+	public String getSendername() {
+		return sendername;
+	}
+
+	public void setSendername(String sendername) {
+		this.sendername = sendername;
 	}
 
 	public int getReceiver() {
