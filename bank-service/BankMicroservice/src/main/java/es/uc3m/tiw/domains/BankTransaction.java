@@ -1,74 +1,83 @@
 package es.uc3m.tiw.domains;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class BankTransaction implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private String cardNumber;
-	private int cv2Number;
-	private int expireMonth;
-	private int expireYear;
-	private int ticketsBought;
-	private int ticketPrice;
+	@Id
+	@GeneratedValue
+	private int transaction_code;
 	
+	private String card_number;
+	private int cv2_number;
+	private int expire_month;
+	private int expire_year;
+	private int tickets_bought;
+	private int ticket_price;
+	private int total_amount;
+	private String date;
+	
+	public BankTransaction() {
+	}
 
 	public String getCardNumber() {
-		return cardNumber;
+		return this.card_number;
 	}
 	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
+		this.card_number = cardNumber;
 	}
 	public int getCv2Number() {
-		return cv2Number;
+		return this.cv2_number;
 	}
 	public void setCv2Number(int cv2Number) {
-		this.cv2Number = cv2Number;
+		this.cv2_number = cv2Number;
 	}
 	public int getExpireMonth() {
-		return expireMonth;
+		return this.expire_month;
 	}
 	public void setExpireMonth(int expireMonth) {
-		this.expireMonth = expireMonth;
+		this.expire_month = expireMonth;
 	}
 	public int getExpireYear() {
-		return expireYear;
+		return this.expire_year;
 	}
 	public void setExpireYear(int expireYear) {
-		this.expireYear = expireYear;
+		this.expire_year = expireYear;
 	}
 	public int getTicketsBought() {
-		return ticketsBought;
+		return this.tickets_bought;
 	}
 	public void setTicketsBought(int ticketsBought) {
-		this.ticketsBought = ticketsBought;
+		this.tickets_bought = ticketsBought;
 	}
 	public int getTicketPrice() {
-		return ticketPrice;
+		return this.ticket_price;
 	}
 	public void setTicketPrice(int ticketPrice) {
-		this.ticketPrice = ticketPrice;
+		this.ticket_price = ticketPrice;
 	}
-	
-	@Override
-	public String toString() {
-		return "CardCredentials [cardNumber=" + cardNumber + ", cv2Number=" + cv2Number + ", expireMonth=" + expireMonth
-				+ ", expireYear=" + expireYear + "]";
+	public int getTotalAmount() {
+		return this.total_amount;
 	}
-	public BankTransaction(String cardNumber, int cv2Number, int expireMonth, int expireYear, int ticketsBought, int ticketPrice) {
-		super();
-		this.cardNumber = cardNumber;
-		this.cv2Number = cv2Number;
-		this.expireMonth = expireMonth;
-		this.expireYear = expireYear;
-		this.ticketsBought = ticketsBought;
-		this.ticketPrice = ticketPrice;
+	public void setTotalAmount(int totalAmount) {
+		this.total_amount = totalAmount;
 	}
-	public BankTransaction() {
-		super();
-		// TODO Auto-generated constructor stub
+	public String getDate() {
+		return this.date;
 	}
-	
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public int getTransactionCode() {
+		return this.transaction_code;
+	}
 	
 
 }
