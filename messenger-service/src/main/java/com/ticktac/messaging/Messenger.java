@@ -33,6 +33,7 @@ public class Messenger {
 	
 	@RequestMapping(value="/readmessages/{receiver}", method=RequestMethod.GET)
 	public List<Message> showMessages(@PathVariable int receiver) {
-		return messageDAO.findByReceiver(receiver);
+		List<Message> messages = messageDAO.findByReceiver(receiver);
+		return messages;
 	}
 }
