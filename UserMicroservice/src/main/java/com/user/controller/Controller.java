@@ -4,6 +4,9 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,32 +57,24 @@ public class Controller {
 		List<User> users=userdao.findByEmailAndPassword(email, password);
 		
 		int size=users.size();
-			return Integer.toString(size);
-		}
+		return Integer.toString(size);
+	}
 	
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login(@RequestParam(value="email", required=true) String email) {
 		
-		
-		
 		return email;
 	}
+	
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
-	public String signup() {
-		
-		User user=new User();
-		
-		
-		user.setEmail("x");
-		user.setName("x");
-		user.setPassword("x");
-		user.setSurname("x");
-		user.setPhoto(null);
-		userdao.save(user);
-		
-		
-		return "hello";
+	public ResponseEntity<User> signup(@Validated @RequestBody User user) {
+		try {
+			return new ResponseEntity<>(userdao.save(user), HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);		
+		}
 	}
 
 	@RequestMapping(value="addevent", method=RequestMethod.GET)
