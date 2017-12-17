@@ -32,8 +32,13 @@ public class Messenger {
 	}
 	
 	@RequestMapping(value="/readmessages/{receiver}", method=RequestMethod.GET)
-	public List<Message> showMessages(@PathVariable int receiver) {
-		List<Message> messages = messageDAO.findByReceiver(receiver);
-		return messages;
+	public ResponseEntity<List<Message>> showMessages(@PathVariable int receiver) {
+		try {
+			List<Message> messages = messageDAO.findByReceiver(receiver);
+			return new ResponseEntity<>(messages, HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 }
